@@ -11,6 +11,8 @@ macx {
 	LIBS += -lz
 } else:win32 {
 	LIBS += -lz
+} else:android {
+	LIBS += -lz
 } else:unix {
 	CONFIG += link_pkgconfig
 	PKGCONFIG += zlib
@@ -90,6 +92,11 @@ macx {
 	GAME_DATA.path = Contents/Resources
 
 	QMAKE_BUNDLE_DATA += GAME_DATA
+} else:android {
+	data.files = ../data/*
+	data.path = /assets/data/
+
+	INSTALLS += data
 } else:win32 {
 	RC_FILE = ../icons/icon.rc
 } else:unix {

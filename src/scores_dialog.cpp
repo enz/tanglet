@@ -54,7 +54,9 @@ ScoresDialog::ScoresDialog(QWidget* parent)
 	// Load default name
 	m_default_name = QSettings().value("Scores/DefaultName").toString();
 	if (m_default_name.isEmpty()) {
-#if defined(Q_OS_UNIX)
+#if defined(Q_OS_ANDROID)
+	m_default_name = tr("User");
+#elif defined(Q_OS_UNIX)
 		passwd* pws = getpwuid(geteuid());
 		if (pws) {
 			m_default_name = QString::fromLocal8Bit(pws->pw_gecos).section(QLatin1Char(','), 0, 0);

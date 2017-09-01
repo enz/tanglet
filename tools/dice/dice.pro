@@ -17,6 +17,8 @@ macx {
 	LIBS += -lz
 } else:win32 {
 	LIBS += -lz
+} else:android {
+	LIBS += -lz
 } else:unix {
 	CONFIG += link_pkgconfig
 	PKGCONFIG += zlib

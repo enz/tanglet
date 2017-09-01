@@ -34,6 +34,11 @@
 #include <unordered_map>
 #include <vector>
 
+// Current Android NDK (r15c) still has round in global namespace
+#ifndef Q_OS_ANDROID
+using std::round;
+#endif
+
 //-----------------------------------------------------------------------------
 
 class Exception : public std::runtime_error
@@ -203,7 +208,7 @@ std::unordered_map<QString, qreal> findLetterFrequency(const std::vector<QString
 				const qreal confidence = qreal(bigrams[bigram] * 100) / qreal(letter_count);
 				if (confidence >= 99) {
 					replace[letter] = bigram;
-					confidences[letter] = std::round(confidence);
+					confidences[letter] = round(confidence);
 					break;
 				}
 			}
@@ -270,7 +275,7 @@ std::unordered_map<QString, int> roundLetters(const std::unordered_map<QString, 
 	std::unordered_map<QString, int> result;
 	int rounded = 0;
 	for (const auto& letter : frequent) {
-		const int value = std::round(scaled[letter]);
+		const int value = round(scaled[letter]);
 		result[letter] = value;
 		rounded += value;
 	}

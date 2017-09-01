@@ -38,11 +38,15 @@ int main(int argc, char** argv) {
 #endif
 	app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
-	QString path = app.applicationDirPath();
 	QStringList paths;
+#ifdef Q_OS_ANDROID
+	paths.append("assets:/data/");
+#else
+	QString path = app.applicationDirPath();
 	paths.append(path + "/data/");
 	paths.append(path + "/../share/tanglet/data/");
 	paths.append(path + "/../Resources/data/");
+#endif
 	QDir::setSearchPaths("tanglet", paths);
 
 	LocaleDialog::loadTranslator("tanglet_");

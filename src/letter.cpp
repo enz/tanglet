@@ -34,6 +34,11 @@
 
 #include <cmath>
 
+// Current Android NDK (r15c) still has lround in global namespace
+#ifndef Q_OS_ANDROID
+using std::lround;
+#endif
+
 //-----------------------------------------------------------------------------
 
 Letter::Letter(const QFont& font, int size, const QPoint& position)
@@ -71,7 +76,7 @@ void Letter::setArrow(qreal angle, int z) {
 	}
 
 	QRect rect = sceneBoundingRect().toRect();
-	switch (std::lround(angle / 45.0)) {
+	switch (lround(angle / 45.0)) {
 		case 0: // right
 			createSideArrow();
 			m_arrow->moveBy(rect.right() - 8, rect.center().y());

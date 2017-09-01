@@ -305,6 +305,12 @@ void Generator::update()
 			emit optimizingStarted();
 
 			QHash<QString, QStringList> words;
+#ifdef Q_OS_ANDROID
+			// gunzip() doesn't work yet with files in Qt resource system
+			QString words_copy = cache_file + "-words";
+			QFile::copy(words_path, words_copy);
+			words_path = words_copy;
+#endif
 			QByteArray data = gunzip(words_path);
 			QTextStream stream(data);
 			stream.setCodec("UTF-8");
